@@ -29,7 +29,7 @@ public:
 					std::cout << "estado inexistente, pruebe otro\n";
 			}
 		int valid;
-		std::cout << "¿ este es un estado final (de validacion) ?  si (1) no (cualquier otro boton) "  ;
+		std::cout << "Â¿ este es un estado final (de validacion) ?  si (1) no (cualquier otro boton) "  ;
 		std::cin >> valid;
 		if(valid == 1)
 			validacion = true;
@@ -93,6 +93,7 @@ public:
 				}
 				nodo_Actual = nodos[nodo_Actual].comportamiento[aux];
 			}
+			std::cout << "estado final: "<<nodo_Actual<< "\n";
 			if(nodos[nodo_Actual].validacion)
 				std::cout<< "cadena validada, \n";
 			else 
