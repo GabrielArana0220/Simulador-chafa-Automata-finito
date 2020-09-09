@@ -70,8 +70,10 @@ public:
 		for(int i = 0; i < cadena.size(); i++){
 			j = 0;
 			while(alfabeto[j] != cadena[i]){
+				if(cadena[i]== '/')
+					return true;
 				j++;
-				if(j > alfabeto.size())
+				if(j > alfabeto.size() && cadena[i]!='/')
 					return false;
 				}
 		}
@@ -80,19 +82,24 @@ public:
 	
 	void validar_cadena(std::string cadena)
 	{
+		bool vacio=false;
 		int aux=0;
 		if(cadena_alfabeto(cadena))
 		{
 			std::cout << "cadena apta..\n";
-			for(int i  = 0; i < cadena.size(); i++)
-			{
-				for(int j = 0; j < alfabeto.size(); j++)
+			if (cadena != "/")
+				for(int i  = 0; i < cadena.size(); i++)
 				{
-					if(alfabeto[j]==cadena[i])
-						aux = j;
+					for(int j = 0; j < alfabeto.size(); j++)
+					{
+						if(alfabeto[j]==cadena[i] || cadena[i]== '/')
+							aux = j;		
+					}
+					if (cadena[i]!='/' && vacio == false)
+						nodo_Actual = nodos[nodo_Actual].comportamiento[aux];
+					else
+						vacio = true;
 				}
-				nodo_Actual = nodos[nodo_Actual].comportamiento[aux];
-			}
 			std::cout << "estado final: "<<nodo_Actual<< "\n";
 			if(nodos[nodo_Actual].validacion)
 				std::cout<< "cadena validada, \n";
@@ -105,6 +112,8 @@ public:
 	}
 	
 };
+	
+};
 
 int main()
 {
@@ -115,7 +124,7 @@ int main()
 	
 	while(true)
 	{
-		std::cout << "\n escriba su cadena...   ";
+		std::cout << "\n escriba su cadena(nota:  escribir '/' se considera cadena vacia)...   ";
 		std::cin >> cadena;
 		aut.validar_cadena(cadena);
 	}
